@@ -143,13 +143,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Ray Tracking.cpp" />
+    <ClCompile Include="blackhole.cpp" />
+    <ClCompile Include="blackhole.vs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="blackhole.frag" />
     <None Include="rayTracking.frag" />
     <None Include="rayTracking.vs" />
-    <None Include="skybox.frag" />
-    <None Include="skybox.vs" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h" />

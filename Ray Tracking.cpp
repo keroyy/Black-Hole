@@ -22,7 +22,7 @@
 #include "Camera.h"
 
 // Properties
-GLuint screenWidth = 800, screenHeight = 600;
+GLuint screenWidth = 1920, screenHeight = 1080;
 const float PI = 3.1415926;
 
 GLuint loadCubemap(vector<const GLchar*> faces);

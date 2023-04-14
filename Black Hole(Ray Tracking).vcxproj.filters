@@ -15,7 +15,10 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Ray Tracking.cpp">
+    <ClCompile Include="blackhole.vs">
+      <Filter>资源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="blackhole.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
@@ -26,10 +29,7 @@
     <None Include="rayTracking.frag">
       <Filter>资源文件</Filter>
     </None>
-    <None Include="skybox.frag">
-      <Filter>资源文件</Filter>
-    </None>
-    <None Include="skybox.vs">
+    <None Include="blackhole.frag">
       <Filter>资源文件</Filter>
     </None>
   </ItemGroup>

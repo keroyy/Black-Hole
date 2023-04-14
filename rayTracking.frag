@@ -49,7 +49,7 @@ Camera InitCamera(vec3 lookfrom, vec3 lookat, vec3 vup, float vfov, float aspect
 
     camera.lower_left_corner = camera.origin - half_width*u - half_height*v - w;
 
-    camera.horizontal =2 * half_height * u;
+    camera.horizontal = 2 * half_height * u;
     camera.vertical = 2 * half_width * v;
     return camera;
 };
@@ -124,24 +124,33 @@ mat3 lookAt(vec3 origin, vec3 target, float roll) {
   return mat3(uu, vv, ww);
 }
 
+mat4 LookAt(vec3 eye, vec3 up)
+{
+    mat4 t2 = mat4(1,0,0,0,0,1,0,0,0,0,1,0,-eye.x,-eye.y,-eye.z,1);
+    vec3 w = normalize(eye);
+    vec3 u = normalize(cross(up,eye));
+    vec3 v = cross(w,u);
+    mat4 t1 = mat4(u.x,v.x,w.x,0,u.y,v.y,w.y,0,u.z,v.z,w.z,0,0,0,0,1);
+    return t1*t2;
+}
+
 vec3 RayTrace(Ray ray){
     vec3 color = vec3(1.0);
     float alpha = 1.0;
      
-    Sphere s = CreateSphere(vec3(0, 0, -1), 0.5);
+    Sphere s = CreateSphere(vec3(0, 0, -1), 0.1);
     if (SphereHit(s, ray)){
         return color;
     }
 
-    mat3 view;
-    vec3 target = vec3(0.0, 0.0, 0.0);
+    mat4 view = LookAt(vec3(0,0,6), vec3(0,0,0));
     
     // skybox color
     vec3 normalizeDir = normalize(ray.direction);
     //vec3 Dir = rotateVector(normalizeDir, vec3(0.0, 1.0, 0.0), time);
-    vec3 Dir = view * normalizeDir;
+    vec4 Dir = inverse(view) * vec4(normalizeDir.xyz,1);
     Dir = normalize(Dir);
-    color = vec3(texture(skybox, normalizeDir));
+    color = vec3(texture(skybox, normalizeDir.xyz));
     return color;
 }
 
@@ -149,7 +158,7 @@ void main(){
     float u = screenCoord.x;
     float v = screenCoord.y;
 
-    Camera camera = InitCamera(vec3(0,0,0), vec3(0,0,-1), vec3(0,1,0), 90, aspect);
+    Camera camera = InitCamera(vec3(0,0,0), vec3(0,0,-1), vec3(0,1,0), 45, aspect);
 
     Ray ray = CreateRay(camera.origin, camera.lower_left_corner + u * camera.horizontal + v * camera.vertical - camera.origin);
 
